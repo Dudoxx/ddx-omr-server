@@ -1,0 +1,8 @@
+# Weights are fetched by scripts/fetch-weights.sh, never committed.
+models/
+.venv/
+logs/
+.env
+__pycache__/
+*.pyc
+.ruff_cache/

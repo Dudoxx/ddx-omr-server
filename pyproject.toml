@@ -1,0 +1,64 @@
+[project]
+name = "ddx-omr-server"
+version = "0.1.0"
+description = "Sentinel OMR service — scores checkbox crops with the AGPL hermitkk/omr-checkbox-classifier over REST"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Dudoxx UG / Acceleate Consulting", email = "walid@acceleate.com" }]
+keywords = ["dudoxx", "sentinel", "omr", "checkbox", "onnx"]
+
+# AGPL boundary: this service depends on public packages only. It never imports
+# ddx-py-patterns or any other proprietary Sentinel package — that would put
+# two licences in one work (plans/grid-omr-lane/_invariants.md #5).
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.32",
+    "pydantic>=2.0",
+    "numpy>=2.0",
+    "onnxruntime>=1.20",
+    "opencv-python-headless>=4.10",
+]
+
+[project.scripts]
+ddx-omr-server = "ddx_omr_server.api.app:main"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6",
+    "pyright>=1.1.390",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ddx_omr_server"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "C", "B", "UP"]
+ignore = ["E501", "B008"]
+
+[tool.pyright]
+typeCheckingMode = "standard"
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.13"
+include = ["src"]
+exclude = ["**/__pycache__", ".venv", "models", "logs"]
+reportMissingImports = true
+reportMissingTypeStubs = false
+reportUnusedImport = true
+reportUnusedVariable = true
+reportPrivateUsage = true
+# onnxruntime and cv2 ship unannotated surfaces; the noise is the vendor's.
+reportUnknownMemberType = false
+reportUnknownArgumentType = false
+reportUnknownVariableType = false
+reportUnknownParameterType = false
