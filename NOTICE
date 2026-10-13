@@ -1,0 +1,30 @@
+ddx-omr-server
+Copyright (C) 2026 Dudoxx UG / Acceleate Consulting - Walid Boudabbous <walid@acceleate.com>
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version. See LICENSE for the full text.
+
+AGPL-3.0 section 13: users who interact with this service over a network can
+obtain its Corresponding Source from the URL served at GET /source
+(environment variable OMR_SOURCE_URL).
+
+-------------------------------------------------------------------------------
+Third-party model weights
+-------------------------------------------------------------------------------
+
+omr_model.onnx — "OMR Checkbox Classifier" (SmallOMRNet)
+  Source    : https://huggingface.co/hermitkk/omr-checkbox-classifier
+  Revision  : 046c24e341099033cc565fa5ff0fbaea01fde938 (pinned)
+  SHA-256   : ada735da9eef990edc82e0c98c0621426b8b85bc35f204e3256f7ea89057e115
+  Licence   : AGPL-3.0
+  Developer : Chenfeng Xu (UBC), supervised by Prof. Andrew Rechnitzer and
+              Prof. Colin B. MacDonald, for the Plom Project
+              (https://gitlab.com/plom/plom)
+
+The weights are NOT stored in this repository. scripts/fetch-weights.sh
+downloads them at the pinned revision and verifies the SHA-256 above.
+
+The preprocessing (crop with padding, Otsu threshold, 64x64 resize,
+normalisation to [-1, 1], sigmoid on the logit) follows the model card.
